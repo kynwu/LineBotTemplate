@@ -18,6 +18,7 @@ import (
 	"net/http"
 	"os"
 
+	// "github.com/kynwu/trafficbot"
 	"github.com/line/line-bot-sdk-go/linebot"
 )
 
@@ -49,9 +50,28 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 		if event.Type == linebot.EventTypeMessage {
 			switch message := event.Message.(type) {
 			case *linebot.TextMessage:
-				if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.ID+":"+message.Text+" OK!12345678")).Do(); err != nil {
-					log.Print(err)
-				}
+				// trafficEvents, err := trafficbot.GetTrafficEvents()
+				switch message.Text {
+				case "1001":
+					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("1001")).Do(); err != nil {
+						log.Print(err)
+					}
+				}							
+				// switch message.Text {
+				// case '1001':
+				// 	if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage('1001')).Do(); err != nil {
+				// 		log.Print(err)
+				// 	}
+				// case '1002':
+				// 	if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage('1002')).Do(); err != nil {
+				// 		log.Print(err)
+				// 	}
+				// default:
+				// 	if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage('請輸入國道號碼(1001, 1002, 1003, 1004, 1005,...)')).Do(); err != nil {
+				// 		log.Print(err)
+				// 	}	
+				// }				
+			// case TextMessage
 			}
 		}
 	}
