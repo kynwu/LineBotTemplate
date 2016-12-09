@@ -18,7 +18,7 @@ import (
 	"net/http"
 	"os"
 
-	// "github.com/kynwu/trafficbot"
+	"github.com/kynwu/trafficbot"
 	"github.com/line/line-bot-sdk-go/linebot"
 )
 
@@ -50,12 +50,20 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 		if event.Type == linebot.EventTypeMessage {
 			switch message := event.Message.(type) {
 			case *linebot.TextMessage:
-				// trafficEvents, err := trafficbot.GetTrafficEvents()
+				trafficEvents, _ := trafficbot.GetTrafficEvents()
 				switch message.Text {
 				case "1001":
-					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("1001")).Do(); err != nil {
+					var responseText string
+					for _, element := range trafficEvents.FormData {
+						if element.Highway == "1001" && element.Region == "N"{
+							responseText += element.Comment + "\n"
+						}
+					}	
+					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(responseText)).Do(); err != nil {
 						log.Print(err)
 					}
+				case "1002":
+				case "1003":
 				default:
 					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("請輸入國道編號(例如：國道一號為1001)")).Do(); err != nil {
 						log.Print(err)
