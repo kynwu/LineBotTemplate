@@ -86,23 +86,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("請輸入國道編號(例如：國道一號為1001)")).Do(); err != nil {
 						log.Print(err)
 					}			
-				}				
-
-				// switch message.Text {
-				// case '1001':
-				// 	if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage('1001')).Do(); err != nil {
-				// 		log.Print(err)
-				// 	}
-				// case '1002':
-				// 	if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage('1002')).Do(); err != nil {
-				// 		log.Print(err)
-				// 	}
-				// default:
-				// 	if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage('請輸入國道號碼(1001, 1002, 1003, 1004, 1005,...)')).Do(); err != nil {
-				// 		log.Print(err)
-				// 	}	
-				// }				
-			// case TextMessage
+				}						
 			}
 		}
 	}
