@@ -4,6 +4,11 @@ import (
 	"net/http"
 	// "io/ioutil"
 	"encoding/json"
+	"googlemaps.github.io/maps"
+	// "github.com/kr/pretty"
+    "golang.org/x/net/context"
+    "log"    
+    "time"
 )
 
 const trafficEventURL = "http://rtr.pbs.gov.tw/pbsmgt/RoadAllServlet?ajaxAction=roadAllCache"
@@ -70,6 +75,31 @@ func GetTrafficEvents() (*TrafficResponse, error) {
 	if err != nil {
 		return nil, err
 	}
-	return trafficResponse, nil
-	
+	return trafficResponse, nil	
+}
+
+func GetDistanceMatrix() time.Duration{
+
+	c, err := maps.NewClient(maps.WithAPIKey("AIzaSyBGHsozp7Ua2p_KMidEB710DXMyfBQP0R8"))
+    if err != nil {
+        log.Fatalf("fatal error: %s", err)
+    }
+
+    r := &maps.DirectionsRequest{
+        Origin:      "25.077713,121.2305153",
+        Destination: "24.934725,121.3990663",        
+        TrafficModel: maps.TrafficModelBestGuess,
+        Language: "zh-TW",
+        Units: "metric",
+        DepartureTime: "now",
+    }
+
+    resp, _, err := c.Directions(context.Background(), r)
+    if err != nil {
+        log.Fatalf("fatal error: %s", err)
+    }    
+
+	// fmt.Println(resp[0].Legs[0].DurationInTraffic);
+	return resp[0].Legs[0].DurationInTraffic;
+    // pretty.Println(resp[0].Legs[0].DurationInTraffic.Minutes);
 }
