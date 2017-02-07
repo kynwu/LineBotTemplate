@@ -55,7 +55,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 
 				case "time":
 					trafficTime := trafficbot.GetDistanceMatrix();
-					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(trafficTime)).Do(); err != nil {
+					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(trafficTime.String())).Do(); err != nil {
 						log.Print(err)
 					}
 				case "1001":
