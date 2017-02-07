@@ -52,6 +52,12 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 			case *linebot.TextMessage:
 				trafficEvents, _ := trafficbot.GetTrafficEvents()
 				switch message.Text {
+
+				case "time":
+					trafficTime := trafficbot.GetDistanceMatrix();
+					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(trafficTime)).Do(); err != nil {
+						log.Print(err)
+					}
 				case "1001":
 					var responseText string
 					for _, element := range trafficEvents.FormData {
