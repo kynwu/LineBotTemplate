@@ -62,7 +62,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						log.Print(err)
 					}
 
-				case "time":
+				case "Time":
 
 					homeToAirport := trafficbot.GetDurationFromHomeToAirport()
 					airportToHome := trafficbot.GetDurationFromAirportToHome()
