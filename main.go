@@ -54,45 +54,48 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 				switch message.Text {
 
 				case "time":
-					trafficTime := trafficbot.GetDistanceMatrix();
-					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(trafficTime.String())).Do(); err != nil {
+
+					homeToAirport := trafficbot.GetDurationFromHomeToAirport();
+					airportToHome := trafficbot.GetDurationFromAirportToHome();
+					s := fmt.Sprintf("from home to airport: %s \n from airport to home: %s", homeToAirport, airportToHome);
+					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(s).Do(); err != nil {
 						log.Print(err)
 					}
 				case "1001":
 					var responseText string
 					for _, element := range trafficEvents.FormData {
-						if element.Highway == "1001" && element.Region == "N"{
+						if element.Highway == "1001" && element.Region == "N" {
 							responseText += element.Comment + "\n"
 						}
-					}	
+					}
 					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(responseText)).Do(); err != nil {
 						log.Print(err)
 					}
 				case "1002":
 					var responseText string
 					for _, element := range trafficEvents.FormData {
-						if element.Highway == "1002" && element.Region == "N"{
+						if element.Highway == "1002" && element.Region == "N" {
 							responseText += element.Comment + "\n"
 						}
-					}	
+					}
 					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(responseText)).Do(); err != nil {
 						log.Print(err)
 					}
 				case "1003":
 					var responseText string
 					for _, element := range trafficEvents.FormData {
-						if element.Highway == "1003" && element.Region == "N"{
+						if element.Highway == "1003" && element.Region == "N" {
 							responseText += element.Comment + "\n"
 						}
-					}	
+					}
 					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(responseText)).Do(); err != nil {
 						log.Print(err)
 					}
 				default:
 					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("請輸入國道編號(例如：國道一號為1001)")).Do(); err != nil {
 						log.Print(err)
-					}			
-				}						
+					}
+				}
 			}
 		}
 	}
