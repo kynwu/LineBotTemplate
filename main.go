@@ -57,7 +57,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 
 					homeToAirport := trafficbot.GetDurationFromHomeToAirport()
 					airportToHome := trafficbot.GetDurationFromAirportToHome()
-					s := fmt.Sprintf("from home to airport: %s \n from airport to home: %s", homeToAirport, airportToHome)
+					s := fmt.Sprintf("from home to airport: %s \nfrom airport to home: %s", homeToAirport, airportToHome)
 					if _, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(s)).Do(); err != nil {
 						log.Print(err)
 					}
